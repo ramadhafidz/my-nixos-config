@@ -9,6 +9,7 @@
     ./config/zsh.nix
     ./config/mpv.nix
     ./config/hyprland.nix
+    ./config/nvim.nix
     inputs.textfox.homeManagerModules.default
   ];
 
@@ -24,10 +25,10 @@
         radius = "3px";
       };
       tabs = {
-        horizontal.enable = false;  # Ganti dari displayHorizontalTabs
-        vertical.margin = "1.0rem";  # Ganti dari sidebery.margin
+        horizontal.enable = false;
+        vertical.margin = "1.0rem";
       };
-      displayWindowControls = true;
+      displayWindowControls = false;
       displayNavButtons = true;
       displayUrlbarIcons = false;
       displaySidebarTools = true;
