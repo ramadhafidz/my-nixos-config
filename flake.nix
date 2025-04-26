@@ -9,9 +9,10 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    textfox.url = "github:adriankarlen/textfox";
   };
 
-  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, textfox, ... }@inputs:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -32,7 +33,7 @@
 	  modules = [
             ./hosts/default.nix
 	    home-manager.nixosModules.home-manager
-	    {
+	    { 
               home-manager = {
     	        useUserPackages = true;
 		useGlobalPkgs = true;
@@ -48,8 +49,9 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
 	  extraSpecialArgs = { inherit inputs; };
 	  modules = [
-            ./home/ramadhafidz/home.nix
-            {
+	    ./home/ramadhafidz/home.nix
+	    textfox.homeManagerModules.default
+            { 
               home = {
                 username = "ramadhafidz";
                 homeDirectory = "/home/ramadhafidz";

@@ -17,6 +17,8 @@
     htop
     unzip
     upower
+    brightnessctl
+    playerctl
 
     # nixpkgs
     nix-prefetch-github

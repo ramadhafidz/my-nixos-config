@@ -18,7 +18,7 @@
 
     scripts = with pkgs.mpvScripts; [
       thumbfast
-      uosc
+      uosc mpris
     ];
 
     scriptOpts = {
