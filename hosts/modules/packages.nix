@@ -17,5 +17,8 @@
     htop
     unzip
     upower
+
+    # nixpkgs
+    nix-prefetch-github
   ];
 }
