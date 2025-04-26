@@ -9,7 +9,7 @@
     ./config/zsh.nix
     ./config/mpv.nix
     ./config/hyprland.nix
-    ./config/nvim.nix
+    ./config/neovim.nix
     ./config/textfox.nix
   ];
 
