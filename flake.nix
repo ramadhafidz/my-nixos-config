@@ -16,9 +16,9 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
+          inherit system; 
+	  config.allowUnfree = true;
+	};
       in {
         packages.default = pkgs.hello;
       }
@@ -26,33 +26,40 @@
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { 
+	  specialArgs = { 
             inherit inputs;
+            system = "x86_64-linux"; 
           };
-          modules = [
+	  modules = [
             ./hosts/default.nix
-            home-manager.nixosModules.home-manager
-            {
+	    home-manager.nixosModules.home-manager
+	    { 
               home-manager = {
-                useUserPackages = true;
-                useGlobalPkgs = true;
-                backupFileExtension = "backup";
-                users.ramadhafidz = {
-                  imports = [
-                    ./home/ramadhafidz/home.nix
-                    textfox.homeManagerModules.default
-                  ];
-                  home = {
-                    username = "ramadhafidz";
-                    homeDirectory = "/home/ramadhafidz";
-                    stateVersion = "24.11";
-                  };
-                };
-                extraSpecialArgs = { inherit inputs; };
+    	        useUserPackages = true;
+		useGlobalPkgs = true;
+		backupFileExtension = "backup";
+		users.ramadhafidz = import ./home/ramadhafidz/home.nix;
+		extraSpecialArgs = { inherit inputs; };
+	      };
+	    }
+	  ];
+	};
+
+	homeConfigurations."ramadhafidz@nixos" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+	  extraSpecialArgs = { inherit inputs; };
+	  modules = [
+	    ./home/ramadhafidz/home.nix
+	    #textfox.homeManagerModules.default
+            { 
+              home = {
+                username = "ramadhafidz";
+                homeDirectory = "/home/ramadhafidz";
+                stateVersion = "24.11";
               };
             }
           ];
-        };
+	};
       };
     };
 }
