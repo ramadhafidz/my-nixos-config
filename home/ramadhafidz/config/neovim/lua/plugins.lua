@@ -1,20 +1,32 @@
 return {
   -- Theme
-  { 
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
     config = function()
-      require('plugins.catppuccin')
+      require("catppuccin").setup({
+        flavour = "mocha",
+        integrations = {
+          cmp = true,
+          gitsigns = true,
+          nvimtree = true,
+          treesitter = true,
+        }
+      })
+      vim.cmd.colorscheme("catppuccin")
     end
   },
 
   -- Treesitter for Highlight syntax
-  { 
+  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require('plugins.treesitter')
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "lua", "python", "javascript" },
+        highlight = { enable = true }
+      })
     end
   },
 
@@ -26,11 +38,7 @@ return {
   { "hrsh7th/cmp-nvim-lsp" },
 
   -- Snippets
-  { "L3MON4D3/LuaSnip",
-    config = function()
-      require('plugins.luasnip')
-    end
-  },
+  { "L3MON4D3/LuaSnip" },
   { "saadparwaiz1/cmp_luasnip" },
 
   -- Fuzzy finder
@@ -42,13 +50,12 @@ return {
   },
 
   -- File explorer
-  { 
+  {
     "nvim-tree/nvim-tree.lua",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require('plugins.nvim-tree')
+      require("nvim-tree").setup()
+      vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
     end
   },
 
@@ -58,7 +65,10 @@ return {
   -- Statusline
   { 
     "nvim-lualine/lualine.nvim",
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+      'catppuccin/nvim'
+    },
     config = function()
       require("plugins.lualine")
     end
@@ -93,37 +103,34 @@ return {
   },
 
   {
-    'akinsho/bufferline.nvim',
-    version = "*",
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require('plugins.bufferline') 
+      require("lualine").setup({
+        options = { theme = "catppuccin" }
+      })
     end
   },
 
   { 'github/copilot.vim' },
 
   {
-    'rmagatti/auto-session',
+    "rmagatti/auto-session",
     lazy = false,
     config = function()
-      require('plugins.auto-session')
-    end,
-
-    ---enables autocomplete for opts
-    ---@module "auto-session"
-    ---@type AutoSession.Config
-    opts = {
-      suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
-      -- log_level = 'debug',
-    }
+      require("auto-session").setup({
+        auto_save = true,
+        auto_restore = true,
+      })
+      vim.keymap.set('n', '<leader>ls', require('auto-session.session-lens').search_session, { noremap = true })
+    end
   },
 
   {
-    'folke/which-key.nvim',
+    "folke/which-key.nvim",
     event = "VeryLazy",
     config = function()
-      require('plugins.which-key')
-    end,
-  }
+      require("which-key").setup()
+    end
+  },
 }

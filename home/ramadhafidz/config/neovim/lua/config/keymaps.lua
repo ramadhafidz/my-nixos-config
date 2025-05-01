@@ -20,7 +20,7 @@ function M.setup()
   -- Bufferline Tab
   map('n', '<Tab>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true })
   map('n', '<S-Tab>', ':BufferLineCyclePrev<CR>', { noremap = true, silent = true })
-  map('n', '<Leader>x', ':bdelete<CR>', { noremap = true, silent = true }) -- Tutup tab
+  map('n', '<Leader>x', ':bdelete<CR>', { noremap = true, silent = true }) -- Tutup tab 
 end
 
 return M
