@@ -5,7 +5,7 @@ function M.setup()
 
   -- UI Config
   opt.number = true
-  opt.relativenumber = true
+  opt.relativenumber = false
   opt.cursorline = true
   opt.showmode = false
 
