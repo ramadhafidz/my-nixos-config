@@ -20,7 +20,6 @@
       ripgrep
       fd
       phpactor
-      prettier
       shfmt
     ];
   };

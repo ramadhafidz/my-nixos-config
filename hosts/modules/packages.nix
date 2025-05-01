@@ -7,6 +7,7 @@
     php84Packages.composer
     python313
     nodejs_23
+    gcc gnumake
 
     # Databases
     mariadb
@@ -19,6 +20,8 @@
     upower
     brightnessctl
     playerctl
+    exfatprogs
+    ripgrep
 
     # nixpkgs
     nix-prefetch-github
