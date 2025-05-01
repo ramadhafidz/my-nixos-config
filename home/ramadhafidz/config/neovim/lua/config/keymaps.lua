@@ -20,7 +20,25 @@ function M.setup()
   -- Bufferline Tab
   map('n', '<Tab>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true })
   map('n', '<S-Tab>', ':BufferLineCyclePrev<CR>', { noremap = true, silent = true })
-  map('n', '<Leader>x', ':bdelete<CR>', { noremap = true, silent = true }) -- Tutup tab 
+  map('n', '<Leader>x', ':bdelete<CR>', { noremap = true, silent = true }) -- Tutup tab
+
+  -- Laravel Specific Keymaps
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "php",
+    callback = function()
+      vim.keymap.set("n", "<leader>la", ":Artisan ", { desc = "Run Artisan Command" })
+      vim.keymap.set("n", "<leader>lr", ":Telescope laravel routes<CR>", { desc = "Search Routes" })
+      vim.keymap.set("n", "<leader>lm", ":Telescope laravel models<CR>", { desc = "Search Models" })
+    end
+  })
+
+  -- Blade file support
+  vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = "*.blade.php",
+    callback = function()
+      vim.bo.filetype = "blade"
+    end
+  })
 end
 
 return M
