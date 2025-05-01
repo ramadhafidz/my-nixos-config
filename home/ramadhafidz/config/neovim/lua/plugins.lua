@@ -145,34 +145,8 @@ return {
 
   {
     'akinsho/bufferline.nvim',
-    version = "v3.*",
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function() 
-      require("bufferline").setup({
-        options = {
-          mode = "tabs",
-          separator_style = "thick",
-          always_show_bufferline = true,
-          diagnostics = "nvim_lsp",
-          diagnostics_indicator = function(count, level)
-            local icon = level:match("error") and " " or level:match("warning") and " " or " "
-            return icon .. count
-          end,
-          offsets = {
-            { filetype = "NvimTree", text = "File Explorer", highlight = "Directory" }
-          },
-          hover = {
-            enabled = true,
-            delay = 100,
-            reveal = {'close'}
-          },
-          custom_filter = function(buf)
-            return vim.bo[buf].filetype ~= "NvimTree"
-          end
-        },
-        highlights = require("catppuccin.groups.integrations.bufferline").get()
-      })
-    end
+    version = "^3.1.0", -- or another specific version
+    dependencies = 'nvim-tree/nvim-web-devicons'
   },
 
   require("plugins.indent"), 
@@ -219,77 +193,13 @@ return {
     end
   },
 
+  require("plugins.lspzero"),
+
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
     config = function()
       require("which-key").setup()
     end
-  },
-
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v3.x",
-    dependencies = {
-      -- LSP Support
-      {"neovim/nvim-lspconfig"},
-      {"williamboman/mason.nvim"},
-      {"williamboman/mason-lspconfig.nvim"},
-
-      -- Autocompletion
-      {"hrsh7th/nvim-cmp"},
-      {"hrsh7th/cmp-nvim-lsp"},
-      {"hrsh7th/cmp-buffer"},
-      {"hrsh7th/cmp-path"},
-      {"hrsh7th/cmp-nvim-lua"},
-
-      -- Snippets
-      {"L3MON4D3/LuaSnip"},
-      {"saadparwaiz1/cmp_luasnip"},
-      {"rafamadriz/friendly-snippets"},
-
-      -- PHP/Laravel Specific
-      {"phpactor/phpactor"}, -- PHP Intelligence
-      {"adalessa/laravel.nvim"}, -- Laravel Artisan integration
-    },
-    config = function()
-      local lsp_zero = require("lsp-zero")
-
-      -- Basic LSP Setup
-      lsp_zero.on_attach(function(client, bufnr)
-        lsp_zero.default_keymaps({buffer = bufnr})
-      end)
-
-      -- Mason untuk install LSP server
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "phpactor",       -- PHP/Laravel
-          "intelephense",   -- PHP
-          "tsserver",       -- JavaScript
-          "html",           -- Blade
-          "cssls",          -- CSS
-          "tailwindcss",    -- Tailwind
-          "emmet_ls",       -- HTML/Blade snippet
-        },
-        handlers = {
-          lsp_zero.default_setup,
-        },
-      })
-
-      -- PHP/Laravel Specific Setup
-      require("laravel").setup({
-        artisan = {
-          sync = {
-            events = { "BufWritePost" }, -- Auto sync setelah save
-          },
-        },
-        routes = {
-          search = "telescope", -- Gunakan telescope untuk search routes
-        },
-      })
-    end
-  },
-
-  require("config.laravel")
+  } 
 }
