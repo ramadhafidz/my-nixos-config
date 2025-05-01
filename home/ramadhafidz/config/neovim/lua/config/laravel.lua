@@ -3,6 +3,7 @@ return {
   {
     "emranovi/blade-formatter.nvim",
     ft = "blade",
+    url = "git@github.com:emranovi/blade-formatter.nvim.git",
     config = function()
       require("blade-formatter").setup({
         indent_size = 4,
