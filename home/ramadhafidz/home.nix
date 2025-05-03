@@ -11,6 +11,7 @@
     ./config/hyprland.nix
     ./config/neovim.nix
     ./config/textfox.nix
+    ./config/ags.nix
   ];
 
   home.packages = with pkgs; [
@@ -21,7 +22,7 @@
     zsh nixd ranger
     zsh-autosuggestions
     plasma5Packages.kdeconnect-kde
-    vscode
+    vscode unrar
   ];
 
   systemd.user.services.kdeconnect-indicator = {
@@ -39,5 +40,5 @@
     Install = {
       WantedBy = [ "default.target" ];
     };
-  };
+  }; 
 }

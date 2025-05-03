@@ -40,4 +40,7 @@
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+
+  networking.firewall.allowedTCPPorts = [ 1714 1764 ];
+  networking.firewall.allowedUDPPorts = [ 1714 1764 ];
 }

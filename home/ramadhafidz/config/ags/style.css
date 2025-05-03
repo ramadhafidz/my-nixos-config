@@ -1,0 +1,18 @@
+* {
+    font-family: "Fira Code", "Font Awesome 6 Free";
+    font-size: 14px;
+}
+
+.top-bar {
+    background-color: rgba(40, 42, 54, 0.9);
+    color: #f8f8f2;
+    padding: 8px;
+}
+
+.distro-icon, .clock, .volume-icon, .wifi-icon, .battery-icon {
+    margin: 0 4px;
+}
+
+.clock {
+    font-weight: bold;
+}
