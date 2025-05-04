@@ -16,16 +16,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/f1f56c08-be9a-4e07-93ac-767d318f3110";
     fsType = "ext4";
-  };
-
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      vaapiIntel
-      libvdpau-va-gl
-    ];
-  };
+  }; 
 
   swapDevices = [ ];
 

@@ -5,8 +5,9 @@
     enable = true;
 
     config = {
-      hwdec = "vaapi";
+      hwdec = "auto-safe";
       vo = "gpu";
+      gpu-api = "opengl";
       profile = "fast";
       save-position-on-quit = true;
       osc = "no";

@@ -24,19 +24,22 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     opts = function(_, opts)
-      return {
-        vim.list_extend(
-          opts.ensure_installed, { "blade", "php_only", "lua", "python", "javascript" }
-          opts.highlight.enable = true
-        ),
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {
+        "blade",
+        "php_only",
+        "html",
+        "css",
+        "javascript",
+        "lua", "python",
+      })
+
+      opts.highlight = opts.highlight or {}
+      opts.highlight.enable = true
+      opts.indent = { enable = true }
+      return opts
     end,
     config = function(_, opts)
-      vim.filetype.add_file_type({
-        patterns = {
-          [".*%.blade%.php"] = "blade",
-        },
-      })
-      require("nvim-treesitter.configs").setup(opts)
       local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
       parser_config.blade = {
         install_info = {
@@ -46,6 +49,8 @@ return {
         },
         filetype = "blade",
       }
+
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
 
