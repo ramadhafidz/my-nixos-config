@@ -5,6 +5,9 @@
     enable = true;
 
     config = {
+      hwdec = "vaapi";
+      vo = "gpu";
+      profile = "fast";
       save-position-on-quit = true;
       osc = "no";
       border = "no";
@@ -43,6 +46,7 @@
 
   home.packages = with pkgs; [
     ffmpeg-full ffmpegthumbnailer jq imagemagick
+    libva-utils
   ];
 
   systemd.user.tmpfiles.rules = [

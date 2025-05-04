@@ -1,48 +1,26 @@
-// Import modul yang diperlukan
-const Widget = await Service.import('widgets');
-const Bar = await Service.import('bar');
+const Widget = imports.widget;
+const App = imports.app;
 
-// Konfigurasi utama
-export default {
-    style: `${App.configDir}/style.css`,
-    windows: [
-        // Bar atas
-        Widget.Window({
-            name: 'top-bar',
-            anchor: ['top', 'left', 'right'],
-            child: Widget.CenterBox({
-                start_widget: Widget.Box({
-                    children: [
-                        Widget.Label({
-                            label: '', // Icon distro
-                            class_name: 'distro-icon',
-                        }),
-                    ],
-                }),
-                center_widget: Widget.Label({
-                    label: 'Clock',
-                    class_name: 'clock',
-                    setup: self => self.poll(1000, label => {
-                        label.label = new Date().toLocaleTimeString();
-                    }),
-                }),
-                end_widget: Widget.Box({
-                    children: [
-                        Widget.Label({
-                            label: '', // Icon volume
-                            class_name: 'volume-icon',
-                        }),
-                        Widget.Label({
-                            label: '', // Icon wifi
-                            class_name: 'wifi-icon',
-                        }),
-                        Widget.Label({
-                            label: '🔋', // Icon baterai
-                            class_name: 'battery-icon',
-                        }),
-                    ],
-                }),
-            }),
-        }),
-    ],
-};
+const bar = Widget.Bar({
+  name: 'topbar',
+  anchor: ['top', 'left', 'right'],
+  exclusivity: 'exclusive',
+  child: Widget.CenterBox({
+    start_widget: Widget.Label({
+      label: 'AGS Bar', class_name: 'logo'
+    }),
+
+    center_widget: Widget.Label({
+      label: 'Center', class_name: 'center'
+    }),
+
+    end_widget: Widget.Clock({
+      format: '%H:%M', class_name: 'clock'
+    }),
+  }),
+  class_name: 'bar',
+});
+
+App.config({
+  windows: [bar],
+});

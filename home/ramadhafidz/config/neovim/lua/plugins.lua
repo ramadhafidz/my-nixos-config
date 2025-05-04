@@ -23,12 +23,30 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "python", "javascript" },
-        highlight = { enable = true }
+    opts = function(_, opts)
+      return {
+        vim.list_extend(
+          opts.ensure_installed, { "blade", "php_only", "lua", "python", "javascript" }
+          opts.highlight.enable = true
+        ),
+    end,
+    config = function(_, opts)
+      vim.filetype.add_file_type({
+        patterns = {
+          [".*%.blade%.php"] = "blade",
+        },
       })
-    end
+      require("nvim-treesitter.configs").setup(opts)
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+      parser_config.blade = {
+        install_info = {
+          url = "https://github.com/EmranMR/tree-sitter-blade",
+          files = { "src/parser.c" },
+          branch = "main",
+        },
+        filetype = "blade",
+      }
+    end,
   },
 
   -- LSP Config
@@ -109,7 +127,7 @@ return {
             { "mode", separator = { left = "", right = "" }, padding = { left = 1, right = 1 } },
           },
           lualine_b = {
-            { "branch", icon = "", separator = { left = "", right = "" }, padding = { left = 1, right = 1 } },
+            { "branch", icon = "", separator = { left = "", right = "" }, padding = { left = 1, right = 1 } },
             { "diff", separator = { left = "", right = "" }, padding = { left = 1, right = 1 } },
           },
           lualine_c = {
@@ -144,9 +162,50 @@ return {
   },
 
   {
-    'akinsho/bufferline.nvim',
-    version = "^3.1.0", -- or another specific version
-    dependencies = 'nvim-tree/nvim-web-devicons'
+    "romgrk/barbar.nvim",
+    version = "^1.0.0",
+    dependencies = { 
+      "nvim-tree/nvim-web-devicons",
+      "lewis6991/gitsigns.nvim",
+    },
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
+    opts = {
+      animation = true,
+      auto_hide = false,
+      clickable = true,
+      icons = {
+        button = "",
+        filetype = { enabled = true },
+        gitsigns = { enabled = true },
+        separator = { left = "▎", right = "▎" },
+        modified = { button = "●" },
+        diagnostics = {
+          [vim.diagnostic.severity.ERROR] = {enabled = true, icon = ''},
+          [vim.diagnostic.severity.WARN] = {enabled = false},
+          [vim.diagnostic.severity.INFO] = {enabled = false},
+          [vim.diagnostic.severity.HINT] = {enabled = true},
+        },
+      }, 
+    },
+  },
+
+  {
+    "SmiteshP/nvim-navic",
+    opts = {
+      lsp = {
+        auto_attach = true,
+      },
+    },
+  },
+
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = { "pint", "phpcsfixer" },
+    },
   },
 
   require("plugins.indent"), 

@@ -22,7 +22,7 @@
     zsh nixd ranger
     zsh-autosuggestions
     plasma5Packages.kdeconnect-kde
-    vscode unrar
+    vscode unrar jasp-desktop
   ];
 
   systemd.user.services.kdeconnect-indicator = {

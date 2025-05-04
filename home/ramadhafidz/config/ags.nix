@@ -6,9 +6,5 @@
     font-awesome
   ];
 
-  xdg.configFile."ags".source = ./ags;
-
-  services.ags = {
-    enable = true;
-  };
+  xdg.configFile."ags".source = ./ags; 
 }

@@ -1,18 +1,22 @@
-* {
-    font-family: "Fira Code", "Font Awesome 6 Free";
-    font-size: 14px;
+.bar {
+  background-color: rgba(30, 30, 46, 0.9); /* Green */
+  padding: 6px 12px;
+  color: #cdd6f4;
+  border-radius: 10px;
+  margin: 10px;
+  font-size: 14px;
+  font-family: JetBrains Mono, monospace;
 }
 
-.top-bar {
-    background-color: rgba(40, 42, 54, 0.9);
-    color: #f8f8f2;
-    padding: 8px;
+.logo {
+  font-weight: bold;
+  color: #89b4fa;
 }
 
-.distro-icon, .clock, .volume-icon, .wifi-icon, .battery-icon {
-    margin: 0 4px;
+.center {
+  color: #f38ba8;
 }
 
 .clock {
-    font-weight: bold;
+  color: #a6e3a1;
 }
