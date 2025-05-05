@@ -1,6 +1,8 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, system, ... }:
 
-{
+let
+  system = "x86_64-linux";
+in {
   home.username = "ramadhafidz";
   home.homeDirectory = "/home/ramadhafidz";
   home.stateVersion = "24.11";
@@ -23,6 +25,7 @@
     zsh-autosuggestions
     plasma5Packages.kdeconnect-kde
     vscode unrar jasp-desktop
+    inputs.zen-browser.packages."${system}".beta
   ];
 
   systemd.user.services.kdeconnect-indicator = {

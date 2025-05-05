@@ -5,6 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    zen-browser = { 
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,7 +16,7 @@
     textfox.url = "github:adriankarlen/textfox";
   };
 
-  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, textfox, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, textfox, zen-browser, ... }@inputs:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {

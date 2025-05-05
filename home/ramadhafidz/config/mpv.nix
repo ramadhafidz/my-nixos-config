@@ -4,11 +4,7 @@
   programs.mpv = {
     enable = true;
 
-    config = {
-      hwdec = "auto-safe";
-      vo = "gpu";
-      gpu-api = "opengl";
-      profile = "fast";
+    config = { 
       save-position-on-quit = true;
       osc = "no";
       border = "no";
