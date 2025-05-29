@@ -25,5 +25,6 @@
 
     # nixpkgs
     nix-prefetch-github
+    git-credential-manager
   ];
 }
