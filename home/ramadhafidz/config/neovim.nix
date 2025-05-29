@@ -8,18 +8,8 @@
     vimdiffAlias = true;
     defaultEditor = true;
 
-    extraPackages = with pkgs; [
-      # LSP
-      nodePackages.intelephense
-      nodePackages.typescript-language-server
-      vscode-langservers-extracted
-      pyright nil
-      lua-language-server
-      
-      # Tools
+    extraPackages = with pkgs; [ 
       ripgrep
-      fd
-      phpactor
       shfmt
     ];
   };

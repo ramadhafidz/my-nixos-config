@@ -1,7 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, system, ... }:
 
 {
   environment.systemPackages = with pkgs; [
+    (inputs.home-manager.packages.${system}.default)
+
     # Dev tools
     php84
     php84Packages.composer

@@ -14,9 +14,9 @@
     ./modules/nix-features.nix
   ];
 
-  environment.systemPackages = [
-    (inputs.home-manager.packages.${system}.default)
-  ];
+  # environment.systemPackages = [
+  #   (inputs.home-manager.packages.${system}.default)
+  # ];
 
   zramSwap = {
     enable = true;
