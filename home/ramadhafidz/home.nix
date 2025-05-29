@@ -26,22 +26,5 @@ in {
     plasma5Packages.kdeconnect-kde
     vscode unrar jasp-desktop
     inputs.zen-browser.packages."${system}".beta
-  ];
-
-  systemd.user.services.kdeconnect-indicator = {
-    Unit = {
-      Description = "KDE Connect Indicator";
-      After = [ "network.target" ];
-    };
-
-    Service = {
-      ExecStart = "${pkgs.plasma5Packages.kdeconnect-kde}/bin/kdeconnect-indicator";
-      Restart = "always";
-      RestartSec = 5;
-    };
-
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  }; 
+  ]; 
 }

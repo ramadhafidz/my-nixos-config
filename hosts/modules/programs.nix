@@ -9,8 +9,9 @@
     config = {
       user = {
         name = "ramadhafidz";
-	email = "hrghiffari@gmail.com";
+	      email = "hrghiffari@gmail.com";
       };
+      credential.helper = "libsecret";
     };
   };
 }
