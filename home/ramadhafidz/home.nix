@@ -31,6 +31,10 @@ in {
   programs.git = {
     enable = true;
     extraConfig = {
+      user = {
+        name = "ramadhafidz";
+        email = "hrghiffari@gmail.com"; 
+      };
       credential.helper = "manager";
       credential."https://github.com".username = "ramadhafidz";
       credential.credentialStore = "cache"; 
