@@ -36,7 +36,8 @@ in {
         email = "hrghiffari@gmail.com"; 
       };
       credential.helper = "manager";
-      credential."https://github.com".username = "ramadhafidz"; 
+      credential."https://github.com".username = "ramadhafidz";
+      credential.credentialStore = "secretservice";
     };
   };
 }
