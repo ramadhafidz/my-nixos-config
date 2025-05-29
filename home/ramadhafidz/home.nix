@@ -25,8 +25,8 @@ in {
     zsh-autosuggestions
     plasma5Packages.kdeconnect-kde
     vscode unrar jasp-desktop
-    firefox tree neovim git tree
-    inputs.zen-browser.packages."${system}".beta
+    tree git tree
+    aseprite
   ];
 
   programs.git = {
