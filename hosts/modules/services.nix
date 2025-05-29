@@ -36,6 +36,10 @@
     };
   };
 
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
+
   services.xserver.enable = true;
 
   hardware.bluetooth.enable = true;
