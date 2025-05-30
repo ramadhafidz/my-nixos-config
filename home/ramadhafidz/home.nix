@@ -2,6 +2,7 @@
 
 let
   system = "x86_64-linux";
+  agsGitHub = inputs.ags-latest.packages.${system}.default or inputs.ags-latest.packages.${system}.ags;
 in {
   home.username = "ramadhafidz";
   home.homeDirectory = "/home/ramadhafidz";
@@ -17,7 +18,7 @@ in {
   ];
 
   home.packages = with pkgs; [
-    kitty ags
+    kitty
     discord
     neofetch grim
     slurp wl-clipboard
@@ -26,7 +27,7 @@ in {
     plasma5Packages.kdeconnect-kde
     vscode unrar jasp-desktop
     tree git tree
-    aseprite
+    aseprite agsGitHub
   ];
 
   programs.git = {

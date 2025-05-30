@@ -1,22 +1,48 @@
-.bar {
-  background-color: rgba(30, 30, 46, 0.9); /* Green */
-  padding: 6px 12px;
-  color: #cdd6f4;
-  border-radius: 10px;
-  margin: 10px;
-  font-size: 14px;
-  font-family: JetBrains Mono, monospace;
+/* ~/.config/ags/style.css */
+
+/* Style untuk window bar utama */
+.bar-window {
+    background-color: rgba(20, 20, 20, 0.8); /* Warna latar belakang bar dengan sedikit transparansi */
+    color: #ffffff; /* Warna teks default */
+    font-family: "Fira Code", monospace; /* Menggunakan font Fira Code [cite: 120] */
+    font-size: 14px;
+    padding: 2px 0px; /* Sedikit padding atas-bawah */
 }
 
-.logo {
-  font-weight: bold;
-  color: #89b4fa;
+.centerbox-bar {
+    padding: 0px 10px; /* Padding kiri-kanan untuk isi bar */
 }
 
-.center {
-  color: #f38ba8;
+/* Style untuk widget workspaces */
+.workspaces button {
+    background-color: transparent;
+    color: #cccccc;
+    border: none;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 5px;
 }
 
+.workspaces button.focused {
+    background-color: #5294e2; /* Warna berbeda untuk workspace yang aktif/fokus */
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Style untuk widget jam */
 .clock {
-  color: #a6e3a1;
+    color: #e5e5e5;
+    padding: 5px 10px;
+}
+
+/* Style untuk system tray */
+.system-tray button {
+    background-color: transparent;
+    color: #cccccc;
+    border: none;
+    padding: 5px;
+}
+
+.system-tray button image {
+    font-size: 18px; /* Sesuaikan ukuran ikon tray */
 }

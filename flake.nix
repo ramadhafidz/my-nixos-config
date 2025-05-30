@@ -5,62 +5,72 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    textfox.url = "github:adriankarlen/textfox";
+    textfox.url = "github:adriankarlen/textfox"; 
+    ags-latest = {
+      url = "github:Aylur/ags/v2.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
-    flake-utils.lib.eachDefaultSystem (flakeSystem: # Mengganti nama variabel 'system' di sini agar tidak ambigu
+  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, textfox, ags-latest, ... }@inputs:
+    flake-utils.lib.eachDefaultSystem (system:
       let
+        # pkgs ini untuk output 'packages.default' dari flake-mu
         pkgs = import nixpkgs {
-          system = flakeSystem; # Menggunakan variabel dari eachDefaultSystem
-          config.allowUnfree = true;
+          inherit system;
+          config.allowUnfree = true; # Sesuai konfigurasi awalmu
         };
       in
       {
-        packages.default = pkgs.hello;
+        packages.default = pkgs.hello; # Sesuai konfigurasi awalmu
       }
     ) // {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux"; # Mendefinisikan sistem untuk konfigurasi NixOS ini
-        specialArgs = { inherit inputs; system = "x86_64-linux"; }; # Meneruskan 'inputs' dan 'system' ke modul NixOS
+        system = "x86_64-linux"; # 
+        specialArgs = {
+          inherit inputs; # Termasuk nixos-hardware, textfox, zen-browser
+          system = "x86_64-linux"; # 
+          # pkgs tidak secara eksplisit didefinisikan di specialArgs awalmu di sini,
+          # Home Manager dengan useGlobalPkgs = true akan mengambil pkgs dari sistem NixOS,
+          # yang mana config.allowUnfree = true sudah diatur di hosts/default.nix 
+        };
         modules = [
           ./hosts/default.nix
-          home-manager.nixosModules.home-manager
+          # Jika kamu menggunakan modul dari nixos-hardware secara spesifik,
+          # kamu bisa menambahkannya di sini. Jika tidak, baris ini bisa dikomentari/dihapus
+          # untuk menghindari error 'attribute default missing' jika tidak ada modul default yang cocok.
+          # nixos-hardware.nixosModules.default
+          home-manager.nixosModules.home-manager # 
           {
             home-manager = {
-              useUserPackages = true;
-              useGlobalPkgs = true;
-              backupFileExtension = "backup";
-              users.ramadhafidz = import ./home/ramadhafidz/home.nix;
-              # 'system' akan tersedia untuk home.nix di sini dari specialArgs nixosSystem
-              extraSpecialArgs = { inherit inputs; }; 
+              useUserPackages = true; # 
+              useGlobalPkgs = true; # 
+              backupFileExtension = "backup"; # 
+              users.ramadhafidz = import ./home/ramadhafidz/home.nix; # 
+              extraSpecialArgs = { inherit inputs; }; # 
             };
           }
         ];
-      };
+      }; # 
 
       homeConfigurations."ramadhafidz@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = (import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; });
-        # Meneruskan 'inputs' DAN 'system' ke modul Home Manager
-        extraSpecialArgs = { inherit inputs; system = "x86_64-linux"; }; # <-- PERUBAHAN DI SINI
+        # Mengembalikan ke penggunaan legacyPackages sesuai konfigurasi awalmu
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # 
+        extraSpecialArgs = { inherit inputs; }; # 
         modules = [
-          ./home/ramadhafidz/home.nix
+          ./home/ramadhafidz/home.nix # 
           {
             home = {
-              username = "ramadhafidz";
-              homeDirectory = "/home/ramadhafidz";
-              stateVersion = "24.11";
+              username = "ramadhafidz"; # 
+              homeDirectory = "/home/ramadhafidz"; # 
+              stateVersion = "24.11"; # 
             };
           }
         ];
-      };
+      }; # 
     };
 }
